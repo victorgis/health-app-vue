@@ -77,6 +77,7 @@
           </div>
         </div>
       </div>
+      <TestPoints :map="map" />
     </div>
     <Footer />
   </div>
@@ -87,15 +88,18 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import mapboxgl from 'mapbox-gl'
 import Loading from '@/components/Loader.vue'
+import TestPoints from '../layers/test-point.vue'
 import axios from 'axios'
 
 export default {
-  name: 'JobsiteHomeView',
-  components: { Header, Footer, Loading },
+  name: 'HealthAppVueHomeView',
+  components: { Header, Footer, Loading, TestPoints },
   // props: ['modelValue'],
   data() {
     return {
+      // show: false,
       map: null,
+      geocoder: null,
       isLoading: false,
       isHospitalForm: false,
       coordinates: {
@@ -144,7 +148,7 @@ export default {
       }
     },
 
-    handleForm(e) {
+    async handleForm(e) {
       e.preventDefault()
 
       const result = {
@@ -157,23 +161,23 @@ export default {
 
       try {
         // Testing for empty forms
-        for (const key in this.hospital) {
-          if (!this.hospital[key].trim()) {
-            this.$toast.error('Kindly fill in all fields!')
-            return
-          }
-        }
-        for (const key in this.coordinates) {
-          if (!this.coordinates[key].trim()) {
-            this.$toast.error('Click on the map to get accurate coordinates')
-            return
-          }
-        }
+        // for (const key in this.hospital) {
+        //   if (!this.hospital[key].trim()) {
+        //     this.$toast.error('Kindly fill in all fields!')
+        //     return
+        //   }
+        // }
+        // for (const key in this.coordinates) {
+        //   if (!this.coordinates[key].trim()) {
+        //     this.$toast.error('Click on the map to get accurate coordinates')
+        //     return
+        //   }
+        // }
 
         // running the loader
         this.isLoading = true
-        console.log("What I'm passing to the back:", result)
-        const response = axios.post('google.com', result)
+        const { data } = await axios.post('/api/data', result)
+        console.log('response from the back to the front', data.data)
         this.$toast.success('Hospital added successfully!')
 
         // resetting the forms to empty
@@ -188,9 +192,9 @@ export default {
         document.getElementById('addHospitalCheckbox').checked = false
         this.isHospitalForm = false
         this.isLoading = false
-        console.log(response)
       } catch (error) {
-        this.$toast.error('An error occured!')
+        this.$toast.error('An error occured!s')
+        this.isLoading = false
         // Reload the current page
         // window.location.reload()
 
@@ -208,8 +212,122 @@ export default {
         zoom: this.location.zoom // starting zoom
       })
 
-      // Add zoom and rotation controls to the map.
+      this.geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl
+        // marker: false
+      })
+
+      this.map.on('load', () => {
+        this.map.addSource('places', {
+          type: 'geojson',
+          data: {
+            type: 'FeatureCollection',
+            features: [
+              {
+                type: 'Feature',
+                properties: {
+                  name: 'Sam',
+                  area: 64,
+                  description: 'This is a town',
+                  icon: 'theatre'
+                },
+                geometry: {
+                  coordinates: [8.084942202848993, 4.776192184612867],
+                  type: 'Point'
+                }
+              },
+              {
+                type: 'Feature',
+                properties: {
+                  name: 'Abang',
+                  area: 25,
+                  description: 'This is a village',
+                  icon: 'theatre'
+                },
+                geometry: {
+                  coordinates: [7.6949275544108104, 4.798088191650336],
+                  type: 'Point'
+                }
+              },
+              {
+                type: 'Feature',
+                properties: {
+                  name: 'Uyo',
+                  area: 34,
+                  description: 'This is a town',
+                  icon: 'theatre'
+                },
+                geometry: {
+                  coordinates: [7.623516421598055, 5.041633177074289],
+                  type: 'Point'
+                }
+              }
+            ]
+          }
+        })
+        this.map.addLayer({
+          id: 'point',
+          source: 'places',
+          type: 'circle',
+          paint: {
+            'circle-radius': 10,
+            'circle-color': '#448ee4'
+            // 'circle-outline': 2
+          }
+        })
+        // this.geocoder.on('result', (event) => {
+        //   this.map.getSource('places').setData(event.result.geometry)
+        // })
+
+        this.map.on('click', 'places', (e) => {
+          console.log('e', e)
+          const coordinates = e.features[0].geometry.coordinates.slice()
+          const description = e.features[0].properties
+
+          // rr.addEventListener("click", (()=>console.log("I got here")))
+
+          const html = `<h2>Simple HTML Table</h2>
+
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Name</th>
+                            <td>${description.name}</td>
+                        </tr>
+                        <tr>
+                            <th>Area</th>
+                            <td>${description.area}</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>${description.description}</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <button name="button" id="popup-button">Click me</button>
+            `
+
+          // const rr = document.getElementById("popup-button");
+
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+            coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
+          }
+          const rrs = new mapboxgl.Popup().setLngLat(coordinates).setHTML(html).addTo(this.map)
+          console.log('rrs', rrs)
+        })
+      })
+
+      // Adding to the map
       this.map.addControl(new mapboxgl.NavigationControl())
+      this.map.addControl(this.geocoder)
+      this.map.on('mouseenter', 'places', () => {
+        this.map.getCanvas().style.cursor = 'pointer'
+      })
+      this.map.on('mouseleave', 'places', () => {
+        this.map.getCanvas().style.cursor = ''
+      })
     }
   }
 }
@@ -293,7 +411,7 @@ input:checked + .slider:before {
   padding: 10px;
   background: #fff;
   position: absolute;
-  top: 200px;
+  top: 237px;
   right: 10px;
   border-radius: 3px;
 }
