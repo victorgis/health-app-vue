@@ -10,17 +10,20 @@
         <li><a href="#">About</a></li>
         <li><a href="#">Services</a></li>
         <li><a href="#">Contact</a></li>
+        <li><a href="#" @click="loginModal">Login</a></li>
       </ul>
     </div>
   </header>
 </template>
     
-    <script>
+<script>
 export default {
   name: 'HeaderVue',
+  props: ['loginModal'],
   data() {
     return {
-      isMenuOpen: false
+      isMenuOpen: false,
+      isLoginOpen: false
     }
   },
   methods: {
@@ -34,6 +37,11 @@ export default {
         icon.innerHTML = `<i class="fa-solid fa-xmark"></i>`
         this.isMenuOpen = true
       }
+    },
+    loginModal() {
+      this.isLoginOpen = true
+      // this.$emit
+      this.loginModal(this.isLoginOpen)
     }
   }
 }

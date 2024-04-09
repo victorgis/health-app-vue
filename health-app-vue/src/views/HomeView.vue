@@ -1,11 +1,15 @@
 <template>
   <div class="parent">
-    <Header />
+    <Header :loginModal="loginModal" />
     <div v-if="isLoading">
       <Loading />
     </div>
     <div class="main">
       <div id="map"></div>
+
+      <div v-if="showLoginModal" class="login-modal">
+        <LoginModal />
+      </div>
 
       <!-- Home button  -->
       <div @click="getLocation" class="homeBtn">
@@ -77,7 +81,7 @@
           </div>
         </div>
       </div>
-      <TestPoints :map="map" />
+      <!-- <TestPoints :map="map" /> -->
     </div>
     <Footer />
   </div>
@@ -88,16 +92,18 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import mapboxgl from 'mapbox-gl'
 import Loading from '@/components/Loader.vue'
-import TestPoints from '../layers/test-point.vue'
+// import TestPoints from '../layers/test-point.vue'
 import axios from 'axios'
+import LoginModal from '../modals/LoginModal.vue'
 
 export default {
   name: 'HealthAppVueHomeView',
-  components: { Header, Footer, Loading, TestPoints },
+  components: { Header, Footer, Loading, LoginModal },
   // props: ['modelValue'],
   data() {
     return {
       // show: false,
+      showLoginModal: false,
       map: null,
       geocoder: null,
       isLoading: false,
@@ -123,6 +129,10 @@ export default {
     this.mapBoxApp()
   },
   methods: {
+    loginModal(data) {
+      this.showLoginModal = data
+      console.log('data from header', data)
+    },
     getLocation() {
       this.mapBoxApp()
     },
