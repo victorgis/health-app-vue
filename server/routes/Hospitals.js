@@ -3,34 +3,22 @@ const router = express.Router();
 const {
   getHospitals,
   createHospitals,
+  getSingleHospitals,
   updateHospitals,
   deleteHospitals,
 } = require("../controllers/Hospitals");
 
-// const {
-//   getPeople,
-//   createPerson,
-//   createPersonPostman,
-//   updatePerson,
-//   deletePerson,
-// } = require("../controllers/people");
+// router.get("/", getHospitals);
+// router.post("/", createHospitals);
+// router.get("/:id", getSingleHospitals)
+// router.put("/:id", updateHospitals);
+// router.delete("/:id", deleteHospitals);
 
-// // router.get('/', getPeople)
-// // router.post('/', createPerson)
-// // router.post('/postman', createPersonPostman)
-// // router.put('/:id', updatePerson)
-// // router.delete('/:id', deletePerson)
-
-// router.route("/").get(getPeople).post(createPerson);
-// router.route("/postman").post(createPersonPostman);
-// router.route("/:id").put(updatePerson).delete(deletePerson);
-
-router.get("/", getHospitals);
-
-router.post("/", createHospitals);
-
-router.put("/:id", updateHospitals);
-
-router.delete("/:id", deleteHospitals);
+router.route("/").get(getHospitals).post(createHospitals);
+router
+  .route("/:id")
+  .get(getSingleHospitals)
+  .patch(updateHospitals)
+  .delete(deleteHospitals);
 
 module.exports = router;

@@ -1,0 +1,221 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.847164062499218,
+          6.676011231106827
+        ]
+      },
+      "properties": {
+        "id": "661646414715c0238fb1d43e",
+        "name": "Nameaco",
+        "phone": "09077421323",
+        "email": "essangvictor@gmail.com",
+        "longitude": 14.847164062499218,
+        "latitude": 6.676011231106827
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.638667968748848,
+          7.134088919627175
+        ]
+      },
+      "properties": {
+        "id": "661668efe52f9c717ac8382f",
+        "name": "Save the yearsss",
+        "phone": "+2348106638962",
+        "email": "essangvictor@gmail.com",
+        "longitude": 13.638667968748848,
+        "latitude": 7.134088919627175
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.849955863399089,
+          4.847163302535023
+        ]
+      },
+      "properties": {
+        "id": "661677397115c0d7fcb757c4",
+        "name": "PHC Igbawa",
+        "phone": "+2348106638962",
+        "email": "essangvictor@gmail.com",
+        "longitude": 7.849955863399089,
+        "latitude": 4.847163302535023
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.455646053435515,
+          3.496955654904795
+        ]
+      },
+      "properties": {
+        "id": "661678577115c0d7fcb757ca",
+        "name": "PHC Igbawa2",
+        "phone": "09077421323",
+        "email": "essangvictor@gmail.com",
+        "longitude": 16.455646053435515,
+        "latitude": 3.496955654904795
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          7.569372735778472,
+          8.987761160835632
+        ]
+      },
+      "properties": {
+        "id": "661678ef7115c0d7fcb757cd",
+        "name": "Nameaco2",
+        "phone": "+2348106638962",
+        "email": "essangvictor@gmail.com",
+        "longitude": 7.569372735778472,
+        "latitude": 8.987761160835632
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.9829708014791834,
+          7.363099547198175
+        ]
+      },
+      "properties": {
+        "id": "6616793a7115c0d7fcb757d0",
+        "name": "uy",
+        "phone": "+2348171320929",
+        "email": "precisegis@gmail.com",
+        "longitude": 3.9829708014791834,
+        "latitude": 7.363099547198175
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          12.381720369563226,
+          9.285057503285174
+        ]
+      },
+      "properties": {
+        "id": "661679b87115c0d7fcb757d6",
+        "name": "yoal",
+        "phone": "3456",
+        "email": "precisegis@gmail.com",
+        "longitude": 12.381720369563226,
+        "latitude": 9.285057503285174
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          14.174471504284156,
+          9.679894914984999
+        ]
+      },
+      "properties": {
+        "id": "66167a2d7115c0d7fcb757db",
+        "name": "fear",
+        "phone": "345",
+        "email": "essangvictor@gmail.com",
+        "longitude": 14.174471504284156,
+        "latitude": 9.679894914984999
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          16.643287445827696,
+          10.484678249410152
+        ]
+      },
+      "properties": {
+        "id": "66167a9b7115c0d7fcb757de",
+        "name": "qe",
+        "phone": "+2348106638962",
+        "email": "essangvictor@gmail.com",
+        "longitude": 16.643287445827696,
+        "latitude": 10.484678249410152
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          6.614176437324261,
+          12.134079525296102
+        ]
+      },
+      "properties": {
+        "id": "66167ac57115c0d7fcb757e1",
+        "name": "Rej",
+        "phone": "09077421323",
+        "email": "essangvictor@gmail.com",
+        "longitude": 6.614176437324261,
+        "latitude": 12.134079525296102
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          11.004117973022062,
+          6.075069565653294
+        ]
+      },
+      "properties": {
+        "id": "66167b667115c0d7fcb757e6",
+        "name": "cqcqe",
+        "phone": "453",
+        "email": "essangvictor@gmail.com",
+        "longitude": 11.004117973022062,
+        "latitude": 6.075069565653294
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          13.107074044539104,
+          11.801825594982247
+        ]
+      },
+      "properties": {
+        "id": "66167c967115c0d7fcb757ea",
+        "name": "Maduguri",
+        "phone": "+2348106638962",
+        "email": "essangvictor@gmail.com",
+        "longitude": 13.107074044539104,
+        "latitude": 11.801825594982247
+      }
+    }
+  ]
+}

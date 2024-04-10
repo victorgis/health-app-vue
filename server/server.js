@@ -6,9 +6,8 @@ const { errorHandler } = require("./middleware/errorMiddleware");
 const connectDB = require("./config/db");
 const port = process.env.PORT;
 const hospi = require("./routes/Hospitals");
-const auth = require("./routes/auth")
-
-// connectDB();
+const auth = require("./routes/auth");
+const notFound = require("./middleware/not-found");
 
 const app = express();
 
@@ -16,10 +15,13 @@ const app = express();
 app.use(express.static("../health-app-vue/dist"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(errorHandler);
+
 
 app.use("/login", auth);
 app.use("/api/data", hospi);
+
+app.use(notFound);
+app.use(errorHandler);
 
 // app.use("/api/facilities", require("./routes/facilityRoutes"));
 // app.use('/api/users', require('./routes/userRoutes'));
@@ -37,4 +39,10 @@ app.use("/api/data", hospi);
 //   app.get('/', (req, res) => res.send('Please set to production'));
 // }
 
-app.listen(port, () => console.log(`Server started on port ${port}`));
+const start = async () => {
+  try {
+    await connectDB();
+    app.listen(port, () => console.log(`Server started on port ${port}`));
+  } catch (error) {}
+};
+start();
