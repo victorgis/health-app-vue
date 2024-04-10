@@ -14,6 +14,7 @@ const app = createApp(App)
 // this.$toast.info(message)
 // this.$toast.default(message)
 
+
 app.use(router)
 app.use(ToastPlugin, {
   position: 'top-right'

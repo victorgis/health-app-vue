@@ -95,11 +95,10 @@ import Loading from '@/components/Loader.vue'
 // import TestPoints from '../layers/test-point.vue'
 import axios from 'axios'
 import LoginModal from '../modals/LoginModal.vue'
-import PopupContent from '../components/PopupContent.vue'
 
 export default {
   name: 'HealthAppVueHomeView',
-  components: { Header, Footer, Loading, LoginModal, PopupContent },
+  components: { Header, Footer, Loading, LoginModal },
   // props: ['modelValue'],
   data() {
     return {
@@ -132,11 +131,22 @@ export default {
     this.getAllLayers()
   },
   methods: {
+    helo() {
+      console.log('Btn clicked')
+    },
     async getAllLayers() {
       const { data } = await axios.get('/api/data')
       this.addedHospitals = data.data
 
       console.log('addedHospitals', this.addedHospitals)
+
+      this.$watch('addedHospitals', async (newValue, oldValue) => {
+        if (newValue !== oldValue) {
+          // Data has changed, reload the app or perform necessary actions
+          console.log('Data has changed. Reloading...')
+          this.mapBoxApp()
+        }
+      })
     },
     loginModal(data) {
       this.showLoginModal = data
@@ -196,7 +206,11 @@ export default {
         //***** */ running the loader
         this.isLoading = true
         const data = await axios.post('/api/data', result)
-        console.log('response from the back to the front', data)
+        const status = data.status
+        if (status == 201) {
+          console.log('I was added')
+          this.getAllLayers()
+        }
 
         this.$toast.success('Hospital added successfully!')
 
@@ -269,50 +283,51 @@ export default {
         })
 
         this.map.on('click', 'places', (e) => {
-          console.log('e', e)
           const coordinates = e.features[0].geometry.coordinates.slice()
           const description = e.features[0].properties
 
           console.log('description', description)
-
-          const html = `<h2>Simple HTML Table</h2>
-
+          const html = `<h3>${description.name} Popup</h3>
+                <hr>
                 <table>
                     <tbody>
                         <tr>
-                            <th>Name</th>
+                            <th>Name:</th>
                             <td>${description.name}</td>
                         </tr>
                         <tr>
-                            <th>Email</th>
+                            <th>Email:</th>
                             <td>${description.email}</td>
                         </tr>
                         <tr>
-                            <th>Phone</th>
+                            <th>Phone:</th>
                             <td>${description.phone}</td>
                         </tr>
                         <tr>
-                            <th>Longitude</th>
+                            <th>Longitude:</th>
                             <td>${description.longitude}</td>
                         </tr>
                         <tr>
-                            <th>Latitude</th>
+                            <th>Latitude:</th>
                             <td>${description.latitude}</td>
                         </tr>
                     </tbody>
                 </table>
-
-                <button name="button" id="popup-button">Edit me</button>
-                <button name="button" id="popup-button">Delete me</button>
+                <hr>
+                <div class="align-center">
+                  <small><i>log in to <b>edit</b> or <b>delete</b></i></small>
+                  <div>
+                    <a href="/login"><button name="button" id="popup-button">Edit me</button></a>
+                  <button class="popup-button" id="popup-button" name="button">Delete me</button></div>
+                </div>
+                
+                
             `
 
           while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
           }
           new mapboxgl.Popup().setLngLat(coordinates).setHTML(html).addTo(this.map)
-          // console.log('rrs', rrs)
-
-          console.log('html', html)
         })
       })
 
@@ -327,12 +342,7 @@ export default {
       })
     }
   },
-  watch: {
-    getAllLayers(newValue, oldValue) {
-      console.log('myVariable changed:', newValue)
-      // You can perform additional actions here based on the new value
-    }
-  }
+  watch: {}
 }
 </script>
 
@@ -491,5 +501,9 @@ button.addHospital-btn:hover {
 
 .close-x {
   cursor: pointer;
+}
+
+template {
+  text-align: left;
 }
 </style>
