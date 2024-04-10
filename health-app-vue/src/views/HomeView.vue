@@ -95,10 +95,11 @@ import Loading from '@/components/Loader.vue'
 // import TestPoints from '../layers/test-point.vue'
 import axios from 'axios'
 import LoginModal from '../modals/LoginModal.vue'
+import PopupContent from '../components/PopupContent.vue'
 
 export default {
   name: 'HealthAppVueHomeView',
-  components: { Header, Footer, Loading, LoginModal },
+  components: { Header, Footer, Loading, LoginModal, PopupContent },
   // props: ['modelValue'],
   data() {
     return {
@@ -121,14 +122,22 @@ export default {
         lng: 9.354,
         lat: 8.2446,
         zoom: 5
-      }
+      },
+      addedHospitals: {}
     }
   },
 
   mounted() {
     this.mapBoxApp()
+    this.getAllLayers()
   },
   methods: {
+    async getAllLayers() {
+      const { data } = await axios.get('/api/data')
+      this.addedHospitals = data.data
+
+      console.log('addedHospitals', this.addedHospitals)
+    },
     loginModal(data) {
       this.showLoginModal = data
       console.log('data from header', data)
@@ -171,23 +180,24 @@ export default {
 
       try {
         // Testing for empty forms
-        // for (const key in this.hospital) {
-        //   if (!this.hospital[key].trim()) {
-        //     this.$toast.error('Kindly fill in all fields!')
-        //     return
-        //   }
-        // }
-        // for (const key in this.coordinates) {
-        //   if (!this.coordinates[key].trim()) {
-        //     this.$toast.error('Click on the map to get accurate coordinates')
-        //     return
-        //   }
-        // }
+        for (const key in this.hospital) {
+          if (!this.hospital[key]) {
+            this.$toast.error('Kindly fill in all fields!')
+            return
+          }
+        }
+        for (const key in this.coordinates) {
+          if (!this.coordinates[key]) {
+            this.$toast.error('Click on the map to get accurate coordinates')
+            return
+          }
+        }
 
-        // running the loader
+        //***** */ running the loader
         this.isLoading = true
-        const { data } = await axios.post('/api/data', result)
-        console.log('response from the back to the front', data.data)
+        const data = await axios.post('/api/data', result)
+        console.log('response from the back to the front', data)
+
         this.$toast.success('Hospital added successfully!')
 
         // resetting the forms to empty
@@ -217,7 +227,7 @@ export default {
         'pk.eyJ1IjoidmVlc3BhdGlhbCIsImEiOiJjbHJxbXpkZWkwNDRlMmluenlnd2E4Mm9tIn0.2zBcvY3IMGRN2tS7kU5rNg'
       this.map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/mapbox/streets-v11',
+        style: 'mapbox://styles/mapbox/streets-v12',
         center: [this.location.lng, this.location.lat], // starting position [lng, lat]
         zoom: this.location.zoom // starting zoom
       })
@@ -231,71 +241,39 @@ export default {
       this.map.on('load', () => {
         this.map.addSource('places', {
           type: 'geojson',
-          data: {
-            type: 'FeatureCollection',
-            features: [
-              {
-                type: 'Feature',
-                properties: {
-                  name: 'Sam',
-                  area: 64,
-                  description: 'This is a town',
-                  icon: 'theatre'
-                },
-                geometry: {
-                  coordinates: [8.084942202848993, 4.776192184612867],
-                  type: 'Point'
-                }
-              },
-              {
-                type: 'Feature',
-                properties: {
-                  name: 'Abang',
-                  area: 25,
-                  description: 'This is a village',
-                  icon: 'theatre'
-                },
-                geometry: {
-                  coordinates: [7.6949275544108104, 4.798088191650336],
-                  type: 'Point'
-                }
-              },
-              {
-                type: 'Feature',
-                properties: {
-                  name: 'Uyo',
-                  area: 34,
-                  description: 'This is a town',
-                  icon: 'theatre'
-                },
-                geometry: {
-                  coordinates: [7.623516421598055, 5.041633177074289],
-                  type: 'Point'
-                }
-              }
-            ]
-          }
+          data: this.addedHospitals
         })
         this.map.addLayer({
-          id: 'point',
+          id: 'places',
           source: 'places',
           type: 'circle',
           paint: {
             'circle-radius': 10,
-            'circle-color': '#448ee4'
-            // 'circle-outline': 2
+            'circle-color': '#448ee4',
+            'circle-outline': 2
           }
         })
-        // this.geocoder.on('result', (event) => {
-        //   this.map.getSource('places').setData(event.result.geometry)
+
+        // this.map.addLayer({
+        //   id: 'places',
+        //   type: 'symbol',
+        //   source: 'places',
+        //   layout: {
+        //     'icon-image': ['get', 'icon'],
+        //     'icon-allow-overlap': true
+        //   }
         // })
+
+        this.geocoder.on('result', (event) => {
+          this.map.getSource('places').setData(event.result.geometry)
+        })
 
         this.map.on('click', 'places', (e) => {
           console.log('e', e)
           const coordinates = e.features[0].geometry.coordinates.slice()
           const description = e.features[0].properties
 
-          // rr.addEventListener("click", (()=>console.log("I got here")))
+          console.log('description', description)
 
           const html = `<h2>Simple HTML Table</h2>
 
@@ -306,26 +284,35 @@ export default {
                             <td>${description.name}</td>
                         </tr>
                         <tr>
-                            <th>Area</th>
-                            <td>${description.area}</td>
+                            <th>Email</th>
+                            <td>${description.email}</td>
                         </tr>
                         <tr>
-                            <th>Description</th>
-                            <td>${description.description}</td>
+                            <th>Phone</th>
+                            <td>${description.phone}</td>
+                        </tr>
+                        <tr>
+                            <th>Longitude</th>
+                            <td>${description.longitude}</td>
+                        </tr>
+                        <tr>
+                            <th>Latitude</th>
+                            <td>${description.latitude}</td>
                         </tr>
                     </tbody>
                 </table>
 
-                <button name="button" id="popup-button">Click me</button>
+                <button name="button" id="popup-button">Edit me</button>
+                <button name="button" id="popup-button">Delete me</button>
             `
-
-          // const rr = document.getElementById("popup-button");
 
           while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
           }
-          const rrs = new mapboxgl.Popup().setLngLat(coordinates).setHTML(html).addTo(this.map)
-          console.log('rrs', rrs)
+          new mapboxgl.Popup().setLngLat(coordinates).setHTML(html).addTo(this.map)
+          // console.log('rrs', rrs)
+
+          console.log('html', html)
         })
       })
 
@@ -338,6 +325,12 @@ export default {
       this.map.on('mouseleave', 'places', () => {
         this.map.getCanvas().style.cursor = ''
       })
+    }
+  },
+  watch: {
+    getAllLayers(newValue, oldValue) {
+      console.log('myVariable changed:', newValue)
+      // You can perform additional actions here based on the new value
     }
   }
 }
