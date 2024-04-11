@@ -4,6 +4,17 @@
     <div v-if="isLoading">
       <Loading />
     </div>
+
+    <!-- Edit Modal  -->
+    <div v-if="showEditModal" class="edit-modal-position">
+      <EditModal :closeModal="closeModal" :individualHospital="individualHospital" />
+    </div>
+
+    <!-- Delete Modal  -->
+    <div v-if="showDeleteModal" class="edit-modal-position">
+      <DeleteModal :closeModal="closeModal" :individualHospital="individualHospital" />
+    </div>
+
     <div class="main">
       <div id="map"></div>
 
@@ -92,18 +103,21 @@ import Header from '@/components/Header.vue'
 import Footer from '@/components/Footer.vue'
 import mapboxgl from 'mapbox-gl'
 import Loading from '@/components/Loader.vue'
-// import TestPoints from '../layers/test-point.vue'
 import axios from 'axios'
 import LoginModal from '../modals/LoginModal.vue'
+import EditModal from '../modals/EditModal.vue'
+import DeleteModal from '../modals/DeleteModal.vue'
 
 export default {
   name: 'HealthAppVueHomeView',
-  components: { Header, Footer, Loading, LoginModal },
+  components: { Header, Footer, Loading, LoginModal, EditModal, DeleteModal },
   // props: ['modelValue'],
   data() {
     return {
-      // show: false,
+      individualHospital: {},
       showLoginModal: false,
+      showEditModal: false,
+      showDeleteModal: false,
       map: null,
       geocoder: null,
       isLoading: false,
@@ -122,35 +136,37 @@ export default {
         lat: 8.2446,
         zoom: 5
       },
-      addedHospitals: {}
+      allHospitals: {}
     }
   },
 
   mounted() {
-    this.mapBoxApp()
     this.getAllLayers()
+    this.mapBoxApp()
   },
   methods: {
-    helo() {
-      console.log('Btn clicked')
-    },
     async getAllLayers() {
-      const { data } = await axios.get('/api/data')
-      this.addedHospitals = data.data
-
-      console.log('addedHospitals', this.addedHospitals)
-
-      this.$watch('addedHospitals', async (newValue, oldValue) => {
+      const { data } = await axios.get('api/data')
+      this.allHospitals = data.data
+      this.$watch('allHospitals', async (newValue, oldValue) => {
         if (newValue !== oldValue) {
-          // Data has changed, reload the app or perform necessary actions
           console.log('Data has changed. Reloading...')
-          this.mapBoxApp()
+          this.mapBoxApp({
+            longitude: this.individualHospital.longitude,
+            latitude: this.individualHospital.latitude
+          })
+          // this.location.lng = this.coordinates.longitude
+          // this.location.lat = this.coordinates.latitude
         }
       })
     },
+    closeModal(response) {
+      this.showEditModal = response
+      this.showDeleteModal = response
+      this.getAllLayers()
+    },
     loginModal(data) {
       this.showLoginModal = data
-      console.log('data from header', data)
     },
     getLocation() {
       this.mapBoxApp()
@@ -203,16 +219,13 @@ export default {
           }
         }
 
-        //***** */ running the loader
         this.isLoading = true
         const data = await axios.post('/api/data', result)
         const status = data.status
         if (status == 201) {
-          console.log('I was added')
+          this.$toast.success('Hospital added successfully!')
           this.getAllLayers()
         }
-
-        this.$toast.success('Hospital added successfully!')
 
         // resetting the forms to empty
         for (const key in this.hospital) {
@@ -237,12 +250,20 @@ export default {
     },
     mapBoxApp() {
       // const { lng, lat, zoom, bearing, pitch } = this.modelValue
+      const x = this.individualHospital.longitude
+        ? this.individualHospital.longitude
+        : this.location.lng
+      console.log('eee', x)
+      // console.log('eee1', x)
       mapboxgl.accessToken =
         'pk.eyJ1IjoidmVlc3BhdGlhbCIsImEiOiJjbHJxbXpkZWkwNDRlMmluenlnd2E4Mm9tIn0.2zBcvY3IMGRN2tS7kU5rNg'
       this.map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v12',
-        center: [this.location.lng, this.location.lat], // starting position [lng, lat]
+        center: [
+          this.individualHospital.longitude ? this.individualHospital.longitude : this.location.lng,
+          this.individualHospital.latitude ? this.individualHospital.latitude : this.location.lat
+        ], // starting position [lng, lat]
         zoom: this.location.zoom // starting zoom
       })
 
@@ -252,10 +273,10 @@ export default {
         // marker: false
       })
 
-      this.map.on('load', () => {
+      this.map.on('load', (data) => {
         this.map.addSource('places', {
           type: 'geojson',
-          data: this.addedHospitals
+          data: this.allHospitals
         })
         this.map.addLayer({
           id: 'places',
@@ -285,8 +306,8 @@ export default {
         this.map.on('click', 'places', (e) => {
           const coordinates = e.features[0].geometry.coordinates.slice()
           const description = e.features[0].properties
+          this.individualHospital = e.features[0].properties
 
-          console.log('description', description)
           const html = `<h3>${description.name} Popup</h3>
                 <hr>
                 <table>
@@ -317,17 +338,33 @@ export default {
                 <div class="align-center">
                   <small><i>log in to <b>edit</b> or <b>delete</b></i></small>
                   <div>
-                    <a href="/login"><button name="button" id="popup-button">Edit me</button></a>
-                  <button class="popup-button" id="popup-button" name="button">Delete me</button></div>
+                    <button name="button" id="popup-button">Edit me</button>
+                    <button class="popup-button" id="popup-button" name="button">Delete me</button>
+                  </div>
                 </div>
-                
-                
+
             `
+
+          const div = document.createElement('div')
+          div.innerHTML = html
+
+          const editBtn = div.children[4].children[1].children[0]
+          const deleteBtn = div.children[4].children[1].children[1]
+
+          editBtn.addEventListener('click', () => {
+            this.showEditModal = true
+          })
+          deleteBtn.addEventListener('click', () => {
+            this.showDeleteModal = true
+          })
 
           while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
             coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360
           }
-          new mapboxgl.Popup().setLngLat(coordinates).setHTML(html).addTo(this.map)
+          const popups = new mapboxgl.Popup()
+            .setLngLat(coordinates)
+            .setDOMContent(div)
+            .addTo(this.map)
         })
       })
 
@@ -505,5 +542,8 @@ button.addHospital-btn:hover {
 
 template {
   text-align: left;
+}
+.edit-modal-position {
+  position: relative;
 }
 </style>
