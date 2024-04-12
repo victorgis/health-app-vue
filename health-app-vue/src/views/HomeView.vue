@@ -150,14 +150,13 @@ export default {
 
   mounted() {
     this.mapBoxApp()
-    
-    // if (this.allHospitals) {
-      
-    // }
     this.reloadCoord()
-
     console.log('json', this.jsonStateData)
-    this.getAllLayers()
+
+    setTimeout(()=>{
+      this.getAllLayers()
+    },2000)
+    
   },
   methods: {
     async getAllLayers() {
