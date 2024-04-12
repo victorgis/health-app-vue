@@ -107,6 +107,7 @@ import axios from 'axios'
 import LoginModal from '../modals/LoginModal.vue'
 import EditModal from '../modals/EditModal.vue'
 import DeleteModal from '../modals/DeleteModal.vue'
+import jsonData from '../../../server/data.json'
 
 export default {
   name: 'HealthAppVueHomeView',
@@ -114,6 +115,7 @@ export default {
   // props: ['modelValue'],
   data() {
     return {
+      jsonStateData: jsonData,
       individualHospital: {},
       showLoginModal: false,
       showEditModal: false,
@@ -148,10 +150,12 @@ export default {
 
   mounted() {
     this.getAllLayers()
-    if (this.allHospitals){
+    if (this.allHospitals) {
       this.mapBoxApp()
     }
     this.reloadCoord()
+
+    console.log('json', this.jsonStateData)
   },
   methods: {
     async getAllLayers() {
@@ -172,19 +176,22 @@ export default {
       this.location.lng = this.individualHospital.longitude
       this.location.lat = this.individualHospital.latitude
       this.location.zoom = this.zoom
-      this.individualHospital = ''
       this.getAllLayers()
     },
     loginModal(data) {
       this.showLoginModal = data
     },
     getLocation() {
-      // this.location.lng = 9.354
-      // this.location.lat = 8.2446
-      // this.location.zoom = 5
+      this.location.lng = 9.354
+      this.location.lat = 8.2446
+      this.location.zoom = 5
+      // this.mapBoxApp()
+      // window.location.reload()
+
+      this.getAllLayers()
       // this.mapBoxApp()
 
-      window.location.reload()
+      
     },
     reloadCoord() {
       this.map.on('click', (e) => {
