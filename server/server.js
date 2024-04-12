@@ -14,7 +14,7 @@ const cors = require("cors");
 const app = express();
 
 //important for seeing req.body
-app.use(express.static("../health-app-vue/dist/index.html"));
+app.use(express.static("../health-app-vue/dist"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
@@ -23,9 +23,7 @@ app.use(
   })
 );
 
-app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../health-app-vue/dist/index.html"));
-});
+// app.get("/", (req, res) => {});
 app.use("/login", auth);
 app.use("/api/data", hospi);
 app.use("/editHospital", hospi);

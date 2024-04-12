@@ -4,6 +4,7 @@ const fs = require("fs");
 
 //Get all hospitals /api/data
 const getHospitals = asyncWrapper(async (req, res) => {
+  // res.sendFile(path.resolve(__dirname, "../health-app-vue/dist/index.html"));
   const allHospitals = await hospitals.find({});
   const jsonData = allHospitals;
 
