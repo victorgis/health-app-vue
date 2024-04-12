@@ -148,7 +148,9 @@ export default {
 
   mounted() {
     this.getAllLayers()
-    this.mapBoxApp()
+    if (this.allHospitals){
+      this.mapBoxApp()
+    }
     this.reloadCoord()
   },
   methods: {
