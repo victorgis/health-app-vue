@@ -148,15 +148,18 @@ export default {
     }
   },
 
+   created() {
+    this.getAllLayers()
+   },
+
   mounted() {
     this.mapBoxApp()
-    this.reloadCoord()
-    console.log('json', this.jsonStateData)
 
-    setTimeout(()=>{
-      this.getAllLayers()
-    },2000)
-    
+
+    this.reloadCoord()
+    this.getLocation()
+
+    console.log('json', this.jsonStateData)
   },
   methods: {
     async getAllLayers() {
@@ -183,16 +186,14 @@ export default {
       this.showLoginModal = data
     },
     getLocation() {
+      // window.location.reload()
       this.location.lng = 9.354
       this.location.lat = 8.2446
       this.location.zoom = 5
       // this.mapBoxApp()
-      // window.location.reload()
 
       this.getAllLayers()
       // this.mapBoxApp()
-
-      
     },
     reloadCoord() {
       this.map.on('click', (e) => {
@@ -303,11 +304,9 @@ export default {
 
       this.geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl,
-        marker: false
+        mapboxgl: mapboxgl
+        // marker: false
       })
-
-      this.getAllLayers()
 
       this.map.on('load', () => {
         this.map.addSource('places', {
