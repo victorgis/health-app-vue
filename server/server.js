@@ -18,7 +18,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  res.sendFile( "../health-app-vue/dist/index.html");
+  res.send( "../health-app-vue/dist/index.html");
   
 });
 app.use("/login", auth);
