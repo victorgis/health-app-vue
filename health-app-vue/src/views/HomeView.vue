@@ -149,13 +149,15 @@ export default {
   },
 
   mounted() {
-    this.getAllLayers()
-    if (this.allHospitals) {
-      this.mapBoxApp()
-    }
+    this.mapBoxApp()
+    
+    // if (this.allHospitals) {
+      
+    // }
     this.reloadCoord()
 
     console.log('json', this.jsonStateData)
+    this.getAllLayers()
   },
   methods: {
     async getAllLayers() {
