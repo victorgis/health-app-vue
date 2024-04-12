@@ -53,7 +53,7 @@ export default {
   methods: {
     async deleteHospital() {
       try {
-        const result = await axios.delete(`/api/data/${this.individualHospital.id}`)
+        const result = await axios.delete(`https://health-app-vue.onrender.com/api/data/${this.individualHospital.id}`)
         const status = result.status
         if (status == 200) {
           console.log('successful')

@@ -153,7 +153,7 @@ export default {
   },
   methods: {
     async getAllLayers() {
-      const { data } = await axios.get('api/data')
+      const { data } = await axios.get('https://health-app-vue.onrender.com/api/data')
       this.allHospitals = data.data
 
       this.$watch('allHospitals', async (newValue, oldValue) => {
@@ -238,7 +238,7 @@ export default {
         }
 
         this.isLoading = true
-        const data = await axios.post('/api/data', result)
+        const data = await axios.post('https://health-app-vue.onrender.com/api/data', result)
         const status = data.status
         if (status == 201) {
           this.$toast.success('Hospital added successfully!')

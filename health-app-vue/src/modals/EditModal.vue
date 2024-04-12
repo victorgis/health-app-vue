@@ -49,7 +49,7 @@ export default {
       }
 
       try {
-        const result = await axios.patch(`/api/data/${this.individualHospital.id}`, payload)
+        const result = await axios.patch(`https://health-app-vue.onrender.com/api/data/${this.individualHospital.id}`, payload)
         const status = result.status
         if (status == 200) {
           console.log("successful")
