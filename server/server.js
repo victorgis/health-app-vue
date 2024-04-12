@@ -16,7 +16,7 @@ app.use(express.static("../health-app-vue/dist"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-
+app.get("/", (req, res) => {});
 app.use("/login", auth);
 app.use("/api/data", hospi);
 app.use("/editHospital", hospi);
