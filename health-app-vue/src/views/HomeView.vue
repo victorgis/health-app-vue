@@ -304,9 +304,11 @@ export default {
 
       this.geocoder = new MapboxGeocoder({
         accessToken: mapboxgl.accessToken,
-        mapboxgl: mapboxgl
-        // marker: false
+        mapboxgl: mapboxgl,
+        marker: false
       })
+
+      this.getAllLayers()
 
       this.map.on('load', () => {
         this.map.addSource('places', {
