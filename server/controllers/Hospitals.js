@@ -29,7 +29,7 @@ const getHospitals = asyncWrapper(async (req, res) => {
   };
 
   // Write GeoJSON data to a file
-  fs.writeFileSync("data.js", JSON.stringify(geoJsonData, null, 2));
+  fs.writeFileSync("data.json", JSON.stringify(geoJsonData, null, 2));
   console.log("GeoJSON file created successfully!", geoJsonData);
 
   res.status(200).json({ success: true, data: geoJsonData });
