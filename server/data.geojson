@@ -24,114 +24,6 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          13.638667968748848,
-          7.134088919627175
-        ]
-      },
-      "properties": {
-        "id": "661668efe52f9c717ac8382f",
-        "name": "Save the yearsss",
-        "phone": "+2348106638962",
-        "email": "essangvictor@gmail.com",
-        "longitude": 13.638667968748848,
-        "latitude": 7.134088919627175
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          7.849955863399089,
-          4.847163302535023
-        ]
-      },
-      "properties": {
-        "id": "661677397115c0d7fcb757c4",
-        "name": "PHC Igbawa",
-        "phone": "+2348106638962",
-        "email": "essangvictor@gmail.com",
-        "longitude": 7.849955863399089,
-        "latitude": 4.847163302535023
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          16.455646053435515,
-          3.496955654904795
-        ]
-      },
-      "properties": {
-        "id": "661678577115c0d7fcb757ca",
-        "name": "PHC Igbawa2",
-        "phone": "09077421323",
-        "email": "essangvictor@gmail.com",
-        "longitude": 16.455646053435515,
-        "latitude": 3.496955654904795
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          7.569372735778472,
-          8.987761160835632
-        ]
-      },
-      "properties": {
-        "id": "661678ef7115c0d7fcb757cd",
-        "name": "Nameaco2",
-        "phone": "+2348106638962",
-        "email": "essangvictor@gmail.com",
-        "longitude": 7.569372735778472,
-        "latitude": 8.987761160835632
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          3.9829708014791834,
-          7.363099547198175
-        ]
-      },
-      "properties": {
-        "id": "6616793a7115c0d7fcb757d0",
-        "name": "uy",
-        "phone": "+2348171320929",
-        "email": "precisegis@gmail.com",
-        "longitude": 3.9829708014791834,
-        "latitude": 7.363099547198175
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
-          12.381720369563226,
-          9.285057503285174
-        ]
-      },
-      "properties": {
-        "id": "661679b87115c0d7fcb757d6",
-        "name": "yoal",
-        "phone": "3456",
-        "email": "precisegis@gmail.com",
-        "longitude": 12.381720369563226,
-        "latitude": 9.285057503285174
-      }
-    },
-    {
-      "type": "Feature",
-      "geometry": {
-        "type": "Point",
-        "coordinates": [
           14.174471504284156,
           9.679894914984999
         ]
@@ -150,17 +42,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          16.643287445827696,
-          10.484678249410152
+          14.314960914069815,
+          10.594178452154352
         ]
       },
       "properties": {
-        "id": "66167a9b7115c0d7fcb757de",
+        "id": "661863c6b59af90a811d2afc",
         "name": "qe",
         "phone": "+2348106638962",
         "email": "essangvictor@gmail.com",
-        "longitude": 16.643287445827696,
-        "latitude": 10.484678249410152
+        "longitude": 14.314960914069815,
+        "latitude": 10.594178452154352
       }
     },
     {
@@ -168,17 +60,35 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          6.614176437324261,
-          12.134079525296102
+          4.242680378376662,
+          8.143590619009089
         ]
       },
       "properties": {
-        "id": "66167ac57115c0d7fcb757e1",
-        "name": "Rej",
+        "id": "66186f02b59af90a811d2b62",
+        "name": "Nameaco",
+        "phone": "08106638062",
+        "email": "essangvictor@gmail.com",
+        "longitude": 4.242680378376662,
+        "latitude": 8.143590619009089
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          3.9300454956539284,
+          7.828235654265171
+        ]
+      },
+      "properties": {
+        "id": "66186f3eb59af90a811d2b68",
+        "name": "PHC Igbawa2",
         "phone": "09077421323",
-        "email": "essangvictor@gmail.com",
-        "longitude": 6.614176437324261,
-        "latitude": 12.134079525296102
+        "email": "precisegis@gmail.com",
+        "longitude": 3.9300454956539284,
+        "latitude": 7.828235654265171
       }
     },
     {
@@ -186,17 +96,17 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          11.004117973022062,
-          6.075069565653294
+          39.47934171116208,
+          8.565126339109923
         ]
       },
       "properties": {
-        "id": "66167b667115c0d7fcb757e6",
-        "name": "cqcqe",
-        "phone": "453",
-        "email": "essangvictor@gmail.com",
-        "longitude": 11.004117973022062,
-        "latitude": 6.075069565653294
+        "id": "6618845eb59af90a811d2e8e",
+        "name": "PHC Igbawa2",
+        "phone": "09077421323",
+        "email": "precisegis@gmail.com",
+        "longitude": 39.47934171116208,
+        "latitude": 8.565126339109923
       }
     },
     {
@@ -204,17 +114,215 @@
       "geometry": {
         "type": "Point",
         "coordinates": [
-          13.107074044539104,
-          11.801825594982247
+          -10.93392263142178,
+          19.838859903016385
         ]
       },
       "properties": {
-        "id": "66167c967115c0d7fcb757ea",
-        "name": "Maduguri",
+        "id": "661884a0b59af90a811d2e97",
+        "name": "PHC Igbawa",
+        "phone": "+2348171320929",
+        "email": "precisegis@gmail.com",
+        "longitude": -10.93392263142178,
+        "latitude": 19.838859903016385
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          2.7173532503998956,
+          28.18981509439081
+        ]
+      },
+      "properties": {
+        "id": "661884f1b59af90a811d2ea1",
+        "name": "PHC Igbawa",
+        "phone": "+2349077421323",
+        "email": "precisegis@gmail.com",
+        "longitude": 2.7173532503998956,
+        "latitude": 28.18981509439081
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -14.883660840074185,
+          15.075295892306173
+        ]
+      },
+      "properties": {
+        "id": "6618868cb59af90a811d2eb1",
+        "name": "qe",
         "phone": "+2348106638962",
         "email": "essangvictor@gmail.com",
-        "longitude": 13.107074044539104,
-        "latitude": 11.801825594982247
+        "longitude": -14.883660840074185,
+        "latitude": 15.075295892306173
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -6.054758797271404,
+          32.33378456649045
+        ]
+      },
+      "properties": {
+        "id": "66188698b59af90a811d2eb4",
+        "name": "qe",
+        "phone": "+2348106638962",
+        "email": "essangvictor@gmail.com",
+        "longitude": -6.054758797271404,
+        "latitude": 32.33378456649045
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.2288875553544187,
+          6.161383632791555
+        ]
+      },
+      "properties": {
+        "id": "66189255b59af90a811d2ed3",
+        "name": "PHC Igbawa",
+        "phone": "09077421323",
+        "email": "precisegis@gmail.com",
+        "longitude": 1.2288875553544187,
+        "latitude": 6.161383632791555
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.2685837429797004,
+          6.164092616960389
+        ]
+      },
+      "properties": {
+        "id": "6618926cb59af90a811d2ed6",
+        "name": "Nameacos",
+        "phone": "09077421323",
+        "email": "precisegis@gmail.com",
+        "longitude": 1.2685837429797004,
+        "latitude": 6.164092616960389
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          10.512483641172565,
+          22.67859532288547
+        ]
+      },
+      "properties": {
+        "id": "661892f6b59af90a811d2eda",
+        "name": "Rej",
+        "phone": "+2349077421323",
+        "email": "precisegis@gmail.com",
+        "longitude": 10.512483641172565,
+        "latitude": 22.67859532288547
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          49.72349699579951,
+          10.997068950366824
+        ]
+      },
+      "properties": {
+        "id": "66189394b59af90a811d2ee6",
+        "name": "PHC Igbawa",
+        "phone": "+2349077421323",
+        "email": "precisegis@gmail.com",
+        "longitude": 49.72349699579951,
+        "latitude": 10.997068950366824
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          17.507422630779985,
+          6.2563315108191375
+        ]
+      },
+      "properties": {
+        "id": "661893b8b59af90a811d2eea",
+        "name": "Rej",
+        "phone": "+2349077421323",
+        "email": "precisegis@gmail.com",
+        "longitude": 17.507422630779985,
+        "latitude": 6.2563315108191375
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          37.77892821164832,
+          0.49095858489866373
+        ]
+      },
+      "properties": {
+        "id": "66189437b59af90a811d2efa",
+        "name": "qe",
+        "phone": "+2348106638962",
+        "email": "essangvictor@gmail.com",
+        "longitude": 37.77892821164832,
+        "latitude": 0.49095858489866373
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          1.142774354119041,
+          8.98597026666053
+        ]
+      },
+      "properties": {
+        "id": "661894f6b59af90a811d2f05",
+        "name": "qe",
+        "phone": "+2348106638962",
+        "email": "essangvictor@gmail.com",
+        "longitude": 1.142774354119041,
+        "latitude": 8.98597026666053
+      }
+    },
+    {
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          30.53504698390364,
+          19.183863942190854
+        ]
+      },
+      "properties": {
+        "id": "66189586b59af90a811d2f09",
+        "name": "qe",
+        "phone": "+2348106638962",
+        "email": "essangvictor@gmail.com",
+        "longitude": 30.53504698390364,
+        "latitude": 19.183863942190854
       }
     }
   ]

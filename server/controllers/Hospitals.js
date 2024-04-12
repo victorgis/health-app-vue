@@ -98,10 +98,15 @@ const deleteHospitals = asyncWrapper(async (req, res) => {
   }
 });
 
+const editModal = (req, res)=>{
+  // console.log("res",res)
+}
+
 module.exports = {
   getHospitals,
   createHospitals,
   getSingleHospitals,
   updateHospitals,
   deleteHospitals,
+  editModal,
 };

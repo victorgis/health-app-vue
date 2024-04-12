@@ -6,6 +6,7 @@ const {
   getSingleHospitals,
   updateHospitals,
   deleteHospitals,
+  editModal,
 } = require("../controllers/Hospitals");
 
 // router.get("/", getHospitals);
@@ -14,7 +15,7 @@ const {
 // router.put("/:id", updateHospitals);
 // router.delete("/:id", deleteHospitals);
 
-router.route("/").get(getHospitals).post(createHospitals);
+router.route("/").get(getHospitals).post(createHospitals).get(editModal);
 router
   .route("/:id")
   .get(getSingleHospitals)

@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/login", auth);
 app.use("/api/data", hospi);
+app.use("/editHospital", hospi);
 
 app.use(notFound);
 app.use(errorHandler);
