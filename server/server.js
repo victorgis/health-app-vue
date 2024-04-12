@@ -8,16 +8,18 @@ const port = process.env.PORT;
 const hospi = require("./routes/Hospitals");
 const auth = require("./routes/auth");
 const notFound = require("./middleware/not-found");
+const path = require("path");
 
 const app = express();
 
 //important for seeing req.body
-// app.use(express.static("../health-app-vue/dist"));
+app.use(express.static("../health-app-vue/dist"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "../health-app-vue/dist"));
+  res.sendFile(path.resolve(__dirname, "../health-app-vue/dist/index.html"));
+  
 });
 app.use("/login", auth);
 app.use("/api/data", hospi);
