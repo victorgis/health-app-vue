@@ -170,6 +170,7 @@ export default {
       this.location.lng = this.individualHospital.longitude
       this.location.lat = this.individualHospital.latitude
       this.location.zoom = this.zoom
+      this.individualHospital = ''
       this.getAllLayers()
     },
     loginModal(data) {
