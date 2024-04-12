@@ -126,11 +126,17 @@ export default {
         longitude: '',
         latitude: ''
       },
+      reload: {
+        longitude: '',
+        latitude: '',
+        zoom: ''
+      },
       hospital: {
         name: '',
         email: '',
         phone: ''
       },
+      zoom: 5,
       location: {
         lng: 9.354,
         lat: 8.2446,
@@ -143,33 +149,46 @@ export default {
   mounted() {
     this.getAllLayers()
     this.mapBoxApp()
+    this.reloadCoord()
   },
   methods: {
     async getAllLayers() {
       const { data } = await axios.get('api/data')
       this.allHospitals = data.data
+
       this.$watch('allHospitals', async (newValue, oldValue) => {
         if (newValue !== oldValue) {
           console.log('Data has changed. Reloading...')
-          this.mapBoxApp({
-            longitude: this.individualHospital.longitude,
-            latitude: this.individualHospital.latitude
-          })
-          // this.location.lng = this.coordinates.longitude
-          // this.location.lat = this.coordinates.latitude
+
+          this.mapBoxApp()
         }
       })
     },
     closeModal(response) {
       this.showEditModal = response
       this.showDeleteModal = response
+      this.location.lng = this.individualHospital.longitude
+      this.location.lat = this.individualHospital.latitude
+      this.location.zoom = this.zoom
       this.getAllLayers()
     },
     loginModal(data) {
       this.showLoginModal = data
     },
     getLocation() {
-      this.mapBoxApp()
+      // this.location.lng = 9.354
+      // this.location.lat = 8.2446
+      // this.location.zoom = 5
+      // this.mapBoxApp()
+
+      window.location.reload()
+    },
+    reloadCoord() {
+      this.map.on('click', (e) => {
+        this.reload.longitude = e.lngLat.lng
+        this.reload.latitude = e.lngLat.lat
+        this.reload.zoom = e.target.style.z
+      })
     },
     closeForm() {
       this.isHospitalForm = false
@@ -184,7 +203,6 @@ export default {
         this.map.on('click', (e) => {
           this.coordinates.longitude = e.lngLat.lng
           this.coordinates.latitude = e.lngLat.lat
-          console.log(this.coordinates)
         })
       } else {
         this.isHospitalForm = false
@@ -224,7 +242,6 @@ export default {
         const status = data.status
         if (status == 201) {
           this.$toast.success('Hospital added successfully!')
-          this.getAllLayers()
         }
 
         // resetting the forms to empty
@@ -235,9 +252,16 @@ export default {
           this.coordinates[key] = ''
         }
 
-        // closing forms after submission
+        // closing forms after submissionƒ
         document.getElementById('addHospitalCheckbox').checked = false
         this.isHospitalForm = false
+
+        this.location.lng = result.longitude
+        this.location.lat = result.latitude
+        this.location.zoom = this.reload.zoom
+
+        this.getAllLayers()
+
         this.isLoading = false
       } catch (error) {
         this.$toast.error('An error occured!s')
@@ -250,20 +274,19 @@ export default {
     },
     mapBoxApp() {
       // const { lng, lat, zoom, bearing, pitch } = this.modelValue
-      const x = this.individualHospital.longitude
-        ? this.individualHospital.longitude
-        : this.location.lng
-      console.log('eee', x)
-      // console.log('eee1', x)
+      // this.location.lng = this.individualHospital.longitude
+      //   ? this.individualHospital.longitude
+      //   : 9.354
+      // this.location.lat = this.individualHospital.latitude
+      //   ? this.individualHospital.latitude
+      //   : 8.2446
+
       mapboxgl.accessToken =
         'pk.eyJ1IjoidmVlc3BhdGlhbCIsImEiOiJjbHJxbXpkZWkwNDRlMmluenlnd2E4Mm9tIn0.2zBcvY3IMGRN2tS7kU5rNg'
       this.map = new mapboxgl.Map({
         container: 'map',
         style: 'mapbox://styles/mapbox/streets-v12',
-        center: [
-          this.individualHospital.longitude ? this.individualHospital.longitude : this.location.lng,
-          this.individualHospital.latitude ? this.individualHospital.latitude : this.location.lat
-        ], // starting position [lng, lat]
+        center: [this.location.lng, this.location.lat], // starting position [lng, lat]
         zoom: this.location.zoom // starting zoom
       })
 
@@ -273,7 +296,7 @@ export default {
         // marker: false
       })
 
-      this.map.on('load', (data) => {
+      this.map.on('load', () => {
         this.map.addSource('places', {
           type: 'geojson',
           data: this.allHospitals
@@ -307,6 +330,7 @@ export default {
           const coordinates = e.features[0].geometry.coordinates.slice()
           const description = e.features[0].properties
           this.individualHospital = e.features[0].properties
+          this.zoom = e.features[0]._z
 
           const html = `<h3>${description.name} Popup</h3>
                 <hr>
