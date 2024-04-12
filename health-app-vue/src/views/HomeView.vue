@@ -189,7 +189,7 @@ export default {
       // window.location.reload()
       this.location.lng = 9.354
       this.location.lat = 8.2446
-      this.location.zoom = 5
+      this.location.zoom = 2
       // this.mapBoxApp()
 
       this.getAllLayers()
