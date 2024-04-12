@@ -406,7 +406,7 @@ export default {
 
       // Adding to the map
       this.map.addControl(new mapboxgl.NavigationControl())
-      this.map.addControl(this.geocoder)
+      // this.map.addControl(this.geocoder)
       this.map.on('mouseenter', 'places', () => {
         this.map.getCanvas().style.cursor = 'pointer'
       })
