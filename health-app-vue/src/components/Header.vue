@@ -8,9 +8,9 @@
       <ul class="menu" :class="{ open: isMenuOpen }">
         <li><a href="#">Home</a></li>
         <li><a href="#">About</a></li>
-        <li><a href="#">Services</a></li>
+        <!-- <li><a href="#">Services</a></li> -->
         <li><a href="#">Contact</a></li>
-        <li><a href="#" @click="loginModal">Login</a></li>
+        <!-- <li><a href="#" @click="loginModal">Login</a></li> -->
       </ul>
     </div>
   </header>

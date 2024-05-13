@@ -24,7 +24,7 @@
     </div> -->
     <div>
       <p>
-        <i class="fa fa-copyright" aria-hidden="true"></i>Copyright 2023 Victor Essang. All Rights
+        <i class="fa fa-copyright" aria-hidden="true"></i> 2024 Victor Essang. All Rights
         Reserved.
       </p>
     </div>
